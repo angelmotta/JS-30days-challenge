@@ -125,10 +125,26 @@ console.log(sum(...numbers)); // expands array into its elements (spread)
 // Expected output: 6
 ```
 
+Useful for `Generic Factory Functions`
 
 ### Higher order functions
 A function that `accepts` a function and/or `returns` a function is called a _**higher-order function**_, and they are very common in JavaScript.
 ```js
-TODO:
+function log(inputFunc) {
+	return function(...args) {    // rest syntax (condense into array)
+		console.log("Input:", args);
+		const result = inputFunc(...args);
+		console.log("Output:", result);
+		return result;
+	}
+}
 ```
 
+Invocation
+```js
+const f = log((a, b) => a + b)
+f(1, 2); // Input: [1, 2]   Output: 3
+```
+
+
+I like the problem Optery is solving. As a user I am aware and cautious about giving out personal information because many times my data is misused. (I found it interesting, so I tried to sign up, but the product is currently focused on the US).
