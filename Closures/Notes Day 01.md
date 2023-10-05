@@ -101,27 +101,27 @@ console.log(f(3, 4)); // 7
 ```
 
 
-### Rest arguments (...)
+### Rest arguments (...args)
 The `rest` syntax `collects` multiples elements and `condenses` them into a `single` element (`array`)
 So `rest` syntax allow access all passed arguments as an `array`
 
 ```javascript
-function f(...args) {            // rest syntax (condense into array)
+function f(...args) {            // 'rest' syntax (condense into array)
   const sum = args[0] + args[1];
   return sum;
 }
-console.log(f(3, 4)); // 7
+console.log(f(3, 4));           // Look how rest operator receive this
 ```
 
 Spread syntax
-Spread is the opposite of `rest`.  Spread syntax `expands an array`  into its `elements`
+`Spread` is the opposite of `rest`.  Spread syntax `expands an array`  into its `elements`
 ```js
-function sum(x, y, z) {
+function sum(x, y, z) {        // Expect individual variables
   return x + y + z;
 }
 
 const numbers = [1, 2, 3];     // array
-console.log(sum(...numbers)); // expands array into its elements (spread)
+console.log(sum(...numbers)); // 'expands' array into its elements (spread)
 // Expected output: 6
 ```
 
