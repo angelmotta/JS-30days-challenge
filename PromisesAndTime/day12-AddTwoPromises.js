@@ -37,7 +37,7 @@ var addTwoPromisesV2 = async function (promise1, promise2) {
     [res1, res2] = await Promise.all([promise1, promise2]);
     return res1 + res2;
 };
-
+``
 addTwoPromisesV2(Promise.resolve(3), Promise.resolve(2)).then(
     (res) => console.log("success", res),
     (err) => console.log("rejected", err)
