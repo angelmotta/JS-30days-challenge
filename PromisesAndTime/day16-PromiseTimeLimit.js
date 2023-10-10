@@ -72,7 +72,7 @@ The function immediately throws an error.
  * @return {Function}
  */
 
-// Approach #1: using setTimeout and waiting for the result from fn
+// Approach #1: using setTimeout and waiting for the result from fn (setTimeout is a source memory leak, see Approach #2)
 var timeLimit = function (fn, t) {
     return async function (...args) {
         return new Promise((resolve, reject) => {
@@ -84,8 +84,38 @@ var timeLimit = function (fn, t) {
     };
 };
 
-// Approach #2: using Promise.race(promise1, promise2)
+// Approach #2: Improved version using clearTimeId to avoid memory leak issues
 var timeLimit2 = function (fn, t) {
+    return async function (...args) {
+        return new Promise((resolve, reject) => {
+            const timerId = setTimeout(() => reject("Time Limit Exceeded"), t);
+            fn(...args)
+                .then((result) => resolve(result))
+                .catch((err) => reject(err))
+                .finally(() => clearTimeout(timerId)); // avoid memory leaks
+        });
+    };
+};
+
+// Approach #3: using async/await keyword
+var timeLimit3 = function (fn, t) {
+    return async function (...args) {
+        return new Promise(async (resolve, reject) => {
+            const timerId = setTimeout(() => reject("Time Limit Exceeded"), t);
+            try {
+                const res = await fn(...args); // wait for the promise to be resolved (actual value)
+                resolve(res);
+            } catch (err) {
+                reject(err); // not used in this example
+            } finally {
+                clearTimeout(timerId); // avoid memory leaks
+            }
+        });
+    };
+};
+
+// Approach #4: using Promise.race(promise1, promise2)
+var timeLimit4 = function (fn, t) {
     return async function (...args) {
         const promiseOriginalFn = fn(...args);
 
