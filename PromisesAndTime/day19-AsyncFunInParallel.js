@@ -88,5 +88,3 @@ promise.then(
     (theError) => {}
 );
 console.log("ejecutado");
-
-// func2().then((res) => console.log(res)); // NO FUNCIONA: out undefined
